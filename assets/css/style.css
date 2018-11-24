@@ -2,12 +2,12 @@ body {
     font-family: 'Cinzel', serif;
 }
 
-.greenBorder {
+.playerSelect {
     border: 2px hidden green;
     padding: 1em;
 }
 
-.greenBorder:hover {
+.playerSelect:hover {
     border: 2px solid green;
     padding: 1em;
     background: lightgreen;

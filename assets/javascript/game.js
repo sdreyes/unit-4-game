@@ -34,6 +34,7 @@ const characters = [
 ];
 
 const characterSelectDiv = $("#characters");
+var player;
 
 function displayCharacters() {
     $.each(characters, function(i, character) {
@@ -41,7 +42,8 @@ function displayCharacters() {
         var name = "<h4>" + characters[i].name + "</h4>";
         var image = "<img src='" + characters[i].image + "'>";
         var hp = "<h4>" + character.hp + " HP</h4>";
-        playerOption.addClass("greenBorder");
+        playerOption.addClass("playerSelect");
+        playerOption.attr("id", i);
         playerOption.html(name);
         playerOption.append(image);
         playerOption.append(hp);
@@ -49,7 +51,16 @@ function displayCharacters() {
     });
 };
 
+function chooseCharacter(player) {
+    var id = $(player).attr("id");
+    player = characters[id];
+    console.log(player);
+}
+
 $(document).ready(function() {
     displayCharacters();
 
+    $(".playerSelect").click(function(){
+        chooseCharacter(this);
+    })
 })
