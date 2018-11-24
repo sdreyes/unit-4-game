@@ -4,11 +4,46 @@ body {
 
 h1 {
     font-size: 2em;
+    margin: .67em;
+}
+
+h2 {
+    font-size: 1.5em;
+    margin: .75em;
+}
+
+h3 {
+    font-size: 1.17em;
+    margin: .83em;
+}
+
+h4 {
+    font-size: 1.12em;
+}
+
+h5 {
+    font-size: .83em;
+}
+
+h6 {
+    font-size: .67em;
+}
+
+.greenBorder {
+    border: 2px hidden green;
+    padding: 1em;
+}
+
+.greenBorder:hover {
+    border: 2px solid green;
+    padding: 1em;
+    background: lightgreen;
 }
 
 #game-title {
     font-size: 3em;
     text-align: center;
+    font-weight: bold;
 }
 
 #character-select {
@@ -19,4 +54,5 @@ h1 {
     text-align: center;
     display: flex;
     justify-content: space-around;
+    align-items: center;
 }

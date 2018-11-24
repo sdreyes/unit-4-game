@@ -1,13 +1,13 @@
 const characters = [
     {
-        "name"          : "Cersei Lannister",
+        "name"          : "Cersei",
         "hp"            : 120,
         "attack"        : 8,
         "counterattack" : 15, // not sure of this //
         "image"       : "assets/images/cersei.jpg"
     },
     {
-        "name"          : "Arya Stark",
+        "name"          : "Arya",
         "hp"            : 100,
         "attack"        : 8, // not sure of this //
         "counterattack" : 5,
@@ -21,7 +21,7 @@ const characters = [
         "image"       : "assets/images/jonsnow.jpg"
     },
     {
-        "name"          : "Danaerys Targaryan",
+        "name"          : "Danaerys",
         "hp"            : 180,
         "attack"        : 8, // not sure of this //
         "counterattack" : 25,
@@ -32,12 +32,13 @@ const characters = [
 const characterSelectDiv = $("#characters");
 
 $.each(characters, function(i, character) {
-    var option = $("<div>");
+    var playerOption = $("<div>");
     var name = "<h2>" + characters[i].name + "</h2>";
     var image = "<img src='" + characters[i].image + "'>";
     var hp = "<h4>" + character.hp + " HP</h4>";
-    option.html(name);
-    option.append(image);
-    option.append(hp);
-    characterSelectDiv.append(option);
+    playerOption.addClass("greenBorder");
+    playerOption.html(name);
+    playerOption.append(image);
+    playerOption.append(hp);
+    characterSelectDiv.append(playerOption);
 });
