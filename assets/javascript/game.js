@@ -31,14 +31,19 @@ const characters = [
 
 const characterSelectDiv = $("#characters");
 
-$.each(characters, function(i, character) {
-    var playerOption = $("<div>");
-    var name = "<h2>" + characters[i].name + "</h2>";
-    var image = "<img src='" + characters[i].image + "'>";
-    var hp = "<h4>" + character.hp + " HP</h4>";
-    playerOption.addClass("greenBorder");
-    playerOption.html(name);
-    playerOption.append(image);
-    playerOption.append(hp);
-    characterSelectDiv.append(playerOption);
-});
+function displayCharacters() {
+    $.each(characters, function(i, character) {
+        var playerOption = $("<div>");
+        var name = "<h2>" + characters[i].name + "</h2>";
+        var image = "<img src='" + characters[i].image + "'>";
+        var hp = "<h4>" + character.hp + " HP</h4>";
+        playerOption.addClass("greenBorder");
+        playerOption.html(name);
+        playerOption.append(image);
+        playerOption.append(hp);
+        characterSelectDiv.append(playerOption);
+    });
+};
+
+displayCharacters();
+
