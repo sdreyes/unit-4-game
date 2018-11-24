@@ -4,33 +4,36 @@ const characters = [
         "hp"            : 120,
         "attack"        : 8,
         "counterattack" : 15, // not sure of this //
-        "picture"       : "assets/images/cersei.jpg"
+        "image"       : "assets/images/cersei.jpg"
     },
     {
         "name"          : "Arya Stark",
         "hp"            : 100,
         "attack"        : 8, // not sure of this //
         "counterattack" : 5,
-        "picture"       : "assets/images/arya.jpg"
+        "image"       : "assets/images/arya.jpg"
     },
     {
         "name"          : "Jon Snow",
         "hp"            : 150,
         "attack"        : 8, // not sure of this //
         "counterattack" : 20,
-        "picture"       : "assets/images/jonsnow"
+        "image"       : "assets/images/jonsnow.jpg"
     },
     {
         "name"          : "Danaerys Targaryan",
         "hp"            : 180,
         "attack"        : 8, // not sure of this //
         "counterattack" : 25,
-        "picture"       : "assets/images/danaerys"
+        "image"       : "assets/images/danaerys.jpg"
     }
 ];
 
 var characterSelectDiv = $("#characters");
 
 $.each(characters, function(i, character) {
-    characterSelectDiv.append("<div>" + character.name + "</div>");
+    var image = "<img src='" + characters[i].image + "'>";
+    characterSelectDiv.append("<div>" + character.name);
+    characterSelectDiv.append(image);
+    characterSelectDiv.append(character.hp + " HP" + "</div>");
 });
