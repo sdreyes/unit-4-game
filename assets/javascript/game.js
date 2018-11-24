@@ -41,7 +41,7 @@ function displayCharacters() {
         playerOption = $("<div>");
         var name = "<h4>" + characters[i].name + "</h4>";
         var image = "<img src='" + characters[i].image + "'>";
-        var hp = "<h4>" + character.hp + " HP</h4>";
+        var hp = "<h6>" + character.hp + " HP</h6>";
         playerOption.addClass("playerSelect");
         playerOption.attr("id", i);
         playerOption.html(name);
