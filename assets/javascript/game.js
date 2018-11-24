@@ -29,11 +29,15 @@ const characters = [
     }
 ];
 
-var characterSelectDiv = $("#characters");
+const characterSelectDiv = $("#characters");
 
 $.each(characters, function(i, character) {
+    var option = $("<div>");
+    var name = "<h2>" + characters[i].name + "</h2>";
     var image = "<img src='" + characters[i].image + "'>";
-    characterSelectDiv.append("<div>" + character.name);
-    characterSelectDiv.append(image);
-    characterSelectDiv.append(character.hp + " HP" + "</div>");
+    var hp = "<h4>" + character.hp + " HP</h4>";
+    option.html(name);
+    option.append(image);
+    option.append(hp);
+    characterSelectDiv.append(option);
 });

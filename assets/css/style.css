@@ -1,3 +1,22 @@
 body {
     font-family: 'Cinzel', serif;
 }
+
+h1 {
+    font-size: 2em;
+}
+
+#game-title {
+    font-size: 3em;
+    text-align: center;
+}
+
+#character-select {
+    text-align: center;
+}
+
+#characters {
+    text-align: center;
+    display: flex;
+    justify-content: space-around;
+}
