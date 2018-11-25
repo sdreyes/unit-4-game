@@ -13,6 +13,29 @@ body {
     background: lightgreen;
 }
 
+.playerSelected {
+    border: 2px solid green;
+    padding: 1em;
+    background: lightgreen;
+}
+
+.opponentSelect {
+    border: 2px hidden red;
+    padding: 1em;
+}
+
+.opponentSelect:hover {
+    border: 2px solid red;
+    padding: 1em;
+    background: lightcoral;
+}
+
+.opponentSelected {
+    border: 2px solid red;
+    padding: 1em;
+    background: lightcoral;
+}
+
 #game-title {
     font-size: 3em;
     text-align: center;

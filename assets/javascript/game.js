@@ -1,40 +1,40 @@
 const characters = [
     {
-        "id"            : 0,
         "name"          : "Cersei",
         "hp"            : 120,
         "attack"        : 8,
         "counterattack" : 15, // not sure of this //
-        "image"       : "assets/images/cersei.jpg"
+        "image"         : "assets/images/cersei.jpg"
     },
     {
-        "id"            : 1,
         "name"          : "Arya",
         "hp"            : 100,
         "attack"        : 8, // not sure of this //
         "counterattack" : 5,
-        "image"       : "assets/images/arya.jpg"
+        "image"         : "assets/images/arya.jpg"
     },
     {
-        "id"            : 2,
         "name"          : "Jon Snow",
         "hp"            : 150,
         "attack"        : 8, // not sure of this //
         "counterattack" : 20,
-        "image"       : "assets/images/jonsnow.jpg"
+        "image"         : "assets/images/jonsnow.jpg"
     },
     {
-        "id"            : 3,
         "name"          : "Danaerys",
         "hp"            : 180,
         "attack"        : 8, // not sure of this //
         "counterattack" : 25,
-        "image"       : "assets/images/danaerys.jpg"
+        "image"         : "assets/images/danaerys.jpg"
     }
 ];
 
 const characterSelectDiv = $("#characters");
-var player;
+var playerCharacter;
+var opponentCharacter;
+var playerOption;
+var characterSelected = false;
+var opponentSelected = false;
 
 function displayCharacters() {
     $.each(characters, function(i, character) {
@@ -52,9 +52,24 @@ function displayCharacters() {
 };
 
 function chooseCharacter(player) {
-    var id = $(player).attr("id");
-    player = characters[id];
-    console.log(player);
+    if (!characterSelected) {
+        var id = $(player).attr("id");
+        $(player).removeClass("playerSelect").addClass("playerSelected");
+        playerCharacter = characters[id];
+        console.log(playerCharacter);
+        characterSelected = true;
+        $(".playerSelect").removeClass("playerSelect").addClass("opponentSelect");
+    }
+}
+
+function chooseOpponent(opponent) {
+    if (characterSelected && !opponentSelected) {
+        var id = $(opponent).attr("id");
+        $(opponent).removeClass("opponentSelect").addClass("opponentSelected");
+        opponentCharacter = characters[id];
+        console.log(opponentCharacter);
+        opponentSelected = true;
+    }
 }
 
 $(document).ready(function() {
@@ -62,5 +77,11 @@ $(document).ready(function() {
 
     $(".playerSelect").click(function(){
         chooseCharacter(this);
-    })
+        $("#instructions").empty();
+        $("#instructions").text("Choose your opponent!");
+    });
+
+    $(".opponentSelect").click(function(){
+        chooseOpponent(this);
+    });
 })
