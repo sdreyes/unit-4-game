@@ -36,6 +36,7 @@ var opponentCharacter;
 var playerOption;
 var characterSelected = false;
 var opponentSelected = false;
+var battleTime = false;
 
 function displayCharacters() {
     $.each(characters, function(i, character) {
@@ -72,13 +73,15 @@ function chooseOpponent(opponent) {
         opponentCharacter = characters[id];
         console.log(opponentCharacter);
         opponentSelected = true;
+        $(".opponentSelect").removeClass("opponentSelect");
         $("#instructions").empty();
     }
 }
 
 function battle() {
-    if (characterSelected && opponentSelected) {
-        $("#battle-instructions").text("Attack!");
+    if (characterSelected && opponentSelected && !battleTime) {
+
+        $("#battle-instructions").text("Battle Ground");
         var battlePlayer = $("<div>");
         var name = "<h4>" + playerCharacter.name + "</h4>";
         var image = "<img src='" + playerCharacter.image + "'>";
@@ -87,7 +90,29 @@ function battle() {
         battlePlayer.append(image);
         battlePlayer.append(hp);
         battleDiv.append(battlePlayer);
+
+        var attackButton = $("<button>");
+        attackButton.html("ATTACK");
+        battleDiv.append(attackButton);
+
+        var battleOpponent = $("<div>");
+        var name = "<h4>" + opponentCharacter.name + "</h4>";
+        var image = "<img src='" + opponentCharacter.image + "'>";
+        var hp = "<h6>" + opponentCharacter.hp + " HP</h6>";
+        battleOpponent.html(name);
+        battleOpponent.append(image);
+        battleOpponent.append(hp);
+        battleDiv.append(battleOpponent);
+
+        battleTime = true;
     }
+    function dealDamage () {
+        opponentCharacter.hp = opponentCharacter.hp - playerCharacter.attack;
+        $(battleOpponent).innerHTML(hp);
+    }
+    $(attackButton).click(function(){
+        dealDamage();
+    })   
 }
 
 $(document).ready(function() {
@@ -98,7 +123,6 @@ $(document).ready(function() {
 
         $(".opponentSelect").click(function(){
             chooseOpponent(this);
-            console.log(opponentSelected);
             battle();
         });
     });

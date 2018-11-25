@@ -42,8 +42,13 @@ body {
     font-weight: bold;
 }
 
-#character-select #battle-ground #battle-instructions {
+#character-select {
     text-align: center;
+}
+
+#battle-ground {
+    text-align: center;
+    padding-top: 3em;
 }
 
 #characters {
