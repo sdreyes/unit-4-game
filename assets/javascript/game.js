@@ -78,7 +78,7 @@ function chooseOpponent(opponent) {
         console.log(opponentCharacter);
         console.log(characters);
         opponentSelected = true;
-        $(".opponentSelect").removeClass("opponentSelect");
+        $(".opponentSelect").removeClass("opponentSelect").addClass("standBy");
         $("#instructions").empty();
     }
 }
@@ -88,9 +88,10 @@ function battle() {
 
         // characterSelectDiv.empty();
         // displayCharacters();
-        $(".playerSelect").removeClass("playerSelect").addClass("opponentSelect");
+        // $(".playerSelect").removeClass("playerSelect").addClass("opponentSelect");
 
         $("#battle-instructions").text("Battle Ground");
+        
         var battlePlayer = $("<div>");
         var playerName = "<h4>" + playerCharacter.name + "</h4>";
         var playerImage = "<img src='" + playerCharacter.image + "'>";
@@ -116,6 +117,7 @@ function battle() {
 
         battleTime = true;
     }
+    
     function dealDamage () {
         opponentCharacter.hp = opponentCharacter.hp - playerAttack;
         opponentHP = "<h6 class='opponentHP'>" + opponentCharacter.hp + " HP</h6>";
@@ -129,22 +131,23 @@ function battle() {
     }
     $(attackButton).click(function(){
         
-        if (!gameover) {
+        if (!gameover && opponentSelected) {
+            $("#outcome").empty();
             dealDamage();
 
             if (opponentCharacter.hp <= 0 && characters.length === 0) {
                 $("#outcome").html("You win! Refresh to play again.")
                 gameover = true;
             }
-            else if (opponentCharacter.hp <= 0) {
-                $("#instructions").text("Choose another opponent");
-                $("#outcome").html(" was defeated. Choose another opponent.")
-                opponentSelected = false;
-
-            }
             else if (playerCharacter.hp <= 0) {
                 $("#outcome").html("You lose. Refresh to play again.")
                 gameover = true;
+            }
+            else if (opponentCharacter.hp <= 0) {
+                $("#outcome").html(opponentCharacter.name + " was defeated.<br/>Choose another opponent.")
+                opponentSelected = false;
+                $(battleOpponent).empty();
+                $(".standBy").removeClass("standBy").addClass("opponentSelect");
             };
         }
     });
