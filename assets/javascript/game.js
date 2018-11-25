@@ -58,7 +58,9 @@ function chooseCharacter(player) {
         var id = $(player).attr("id");
         $(player).removeClass("playerSelect").addClass("playerSelected");
         playerCharacter = characters[id];
+        characters.splice(id, 1);
         console.log(playerCharacter);
+        console.log(characters);
         characterSelected = true;
         $(".playerSelect").removeClass("playerSelect").addClass("opponentSelect");
         $("#instructions").empty();
@@ -71,7 +73,9 @@ function chooseOpponent(opponent) {
         var id = $(opponent).attr("id");
         $(opponent).removeClass("opponentSelect").addClass("opponentSelected");
         opponentCharacter = characters[id];
+        characters.splice(id, 1);
         console.log(opponentCharacter);
+        console.log(characters);
         opponentSelected = true;
         $(".opponentSelect").removeClass("opponentSelect");
         $("#instructions").empty();
@@ -81,14 +85,18 @@ function chooseOpponent(opponent) {
 function battle() {
     if (characterSelected && opponentSelected && !battleTime) {
 
+        characterSelectDiv.empty();
+        displayCharacters();
+        $(".playerSelect").removeClass("playerSelect").addClass("opponentSelect");
+
         $("#battle-instructions").text("Battle Ground");
         var battlePlayer = $("<div>");
-        var name = "<h4>" + playerCharacter.name + "</h4>";
-        var image = "<img src='" + playerCharacter.image + "'>";
-        var hp = "<h6>" + playerCharacter.hp + " HP</h6>";
-        battlePlayer.html(name);
-        battlePlayer.append(image);
-        battlePlayer.append(hp);
+        var playerName = "<h4>" + playerCharacter.name + "</h4>";
+        var playerImage = "<img src='" + playerCharacter.image + "'>";
+        var playerHP = "<h6 class='playerHP'>" + playerCharacter.hp + " HP</h6>";
+        battlePlayer.html(playerName);
+        battlePlayer.append(playerImage);
+        battlePlayer.append(playerHP);
         battleDiv.append(battlePlayer);
 
         var attackButton = $("<button>");
@@ -96,23 +104,38 @@ function battle() {
         battleDiv.append(attackButton);
 
         var battleOpponent = $("<div>");
-        var name = "<h4>" + opponentCharacter.name + "</h4>";
-        var image = "<img src='" + opponentCharacter.image + "'>";
-        var hp = "<h6>" + opponentCharacter.hp + " HP</h6>";
-        battleOpponent.html(name);
-        battleOpponent.append(image);
-        battleOpponent.append(hp);
+        var opponentName = "<h4>" + opponentCharacter.name + "</h4>";
+        var opponentImage = "<img src='" + opponentCharacter.image + "'>";
+        var opponentHP = "<h6 class='opponentHP'>" + opponentCharacter.hp + " HP</h6>";
+        battleOpponent.html(opponentName);
+        battleOpponent.append(opponentImage);
+        battleOpponent.append(opponentHP);
         battleDiv.append(battleOpponent);
 
         battleTime = true;
     }
     function dealDamage () {
         opponentCharacter.hp = opponentCharacter.hp - playerCharacter.attack;
-        $(battleOpponent).innerHTML(hp);
+        opponentHP = "<h6 class='opponentHP'>" + opponentCharacter.hp + " HP</h6>";
+        playerCharacter.hp = playerCharacter.hp - opponentCharacter.counterattack;
+        playerHP = "<h6 class='playerHP'>" + playerCharacter.hp + " HP</h6>";
+        $(".playerHP").empty();
+        $(".opponentHP").empty();
+        $(battleOpponent).append(opponentHP);
+        $(battlePlayer).append(playerHP);
+
+
     }
     $(attackButton).click(function(){
         dealDamage();
-    })   
+
+        if (opponentCharacter.hp <= 0) {
+            $("#outcome").html("You win! Refresh to play again.")
+        }
+        else if (playerCharacter.hp <= 0) {
+            $("#outcome").html("You lose. Refresh to play again.")
+        };
+    }) ;  
 }
 
 $(document).ready(function() {
