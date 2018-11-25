@@ -37,6 +37,7 @@ var playerOption;
 var characterSelected = false;
 var opponentSelected = false;
 var battleTime = false;
+var gameover = false;
 
 function displayCharacters() {
     $.each(characters, function(i, character) {
@@ -58,13 +59,13 @@ function chooseCharacter(player) {
         var id = $(player).attr("id");
         $(player).removeClass("playerSelect").addClass("playerSelected");
         playerCharacter = characters[id];
-        characters.splice(id, 1);
+        // characters.splice(id, 1);
         console.log(playerCharacter);
         console.log(characters);
         characterSelected = true;
         $(".playerSelect").removeClass("playerSelect").addClass("opponentSelect");
         $("#instructions").empty();
-        $("#instructions").text("Choose your opponent!");
+        $("#instructions").text("Choose your opponent");
     }
 }
 
@@ -73,7 +74,7 @@ function chooseOpponent(opponent) {
         var id = $(opponent).attr("id");
         $(opponent).removeClass("opponentSelect").addClass("opponentSelected");
         opponentCharacter = characters[id];
-        characters.splice(id, 1);
+        // characters.splice(id, 1);
         console.log(opponentCharacter);
         console.log(characters);
         opponentSelected = true;
@@ -85,8 +86,8 @@ function chooseOpponent(opponent) {
 function battle() {
     if (characterSelected && opponentSelected && !battleTime) {
 
-        characterSelectDiv.empty();
-        displayCharacters();
+        // characterSelectDiv.empty();
+        // displayCharacters();
         $(".playerSelect").removeClass("playerSelect").addClass("opponentSelect");
 
         $("#battle-instructions").text("Battle Ground");
@@ -98,6 +99,7 @@ function battle() {
         battlePlayer.append(playerImage);
         battlePlayer.append(playerHP);
         battleDiv.append(battlePlayer);
+        var playerAttack = playerCharacter.attack;
 
         var attackButton = $("<button>");
         attackButton.html("ATTACK");
@@ -115,7 +117,7 @@ function battle() {
         battleTime = true;
     }
     function dealDamage () {
-        opponentCharacter.hp = opponentCharacter.hp - playerCharacter.attack;
+        opponentCharacter.hp = opponentCharacter.hp - playerAttack;
         opponentHP = "<h6 class='opponentHP'>" + opponentCharacter.hp + " HP</h6>";
         playerCharacter.hp = playerCharacter.hp - opponentCharacter.counterattack;
         playerHP = "<h6 class='playerHP'>" + playerCharacter.hp + " HP</h6>";
@@ -123,19 +125,29 @@ function battle() {
         $(".opponentHP").empty();
         $(battleOpponent).append(opponentHP);
         $(battlePlayer).append(playerHP);
-
-
+        playerAttack = playerAttack + playerCharacter.attack 
     }
     $(attackButton).click(function(){
-        dealDamage();
+        
+        if (!gameover) {
+            dealDamage();
 
-        if (opponentCharacter.hp <= 0) {
-            $("#outcome").html("You win! Refresh to play again.")
+            if (opponentCharacter.hp <= 0 && characters.length === 0) {
+                $("#outcome").html("You win! Refresh to play again.")
+                gameover = true;
+            }
+            else if (opponentCharacter.hp <= 0) {
+                $("#instructions").text("Choose another opponent");
+                $("#outcome").html(" was defeated. Choose another opponent.")
+                opponentSelected = false;
+
+            }
+            else if (playerCharacter.hp <= 0) {
+                $("#outcome").html("You lose. Refresh to play again.")
+                gameover = true;
+            };
         }
-        else if (playerCharacter.hp <= 0) {
-            $("#outcome").html("You lose. Refresh to play again.")
-        };
-    }) ;  
+    });
 }
 
 $(document).ready(function() {
