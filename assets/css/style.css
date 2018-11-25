@@ -42,11 +42,18 @@ body {
     font-weight: bold;
 }
 
-#character-select {
+#character-select #battle-ground #battle-instructions {
     text-align: center;
 }
 
 #characters {
+    text-align: center;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#battle {
     text-align: center;
     display: flex;
     justify-content: space-around;

@@ -30,6 +30,7 @@ const characters = [
 ];
 
 const characterSelectDiv = $("#characters");
+const battleDiv = $("#battle");
 var playerCharacter;
 var opponentCharacter;
 var playerOption;
@@ -59,6 +60,8 @@ function chooseCharacter(player) {
         console.log(playerCharacter);
         characterSelected = true;
         $(".playerSelect").removeClass("playerSelect").addClass("opponentSelect");
+        $("#instructions").empty();
+        $("#instructions").text("Choose your opponent!");
     }
 }
 
@@ -69,6 +72,21 @@ function chooseOpponent(opponent) {
         opponentCharacter = characters[id];
         console.log(opponentCharacter);
         opponentSelected = true;
+        $("#instructions").empty();
+    }
+}
+
+function battle() {
+    if (characterSelected && opponentSelected) {
+        $("#battle-instructions").text("Attack!");
+        var battlePlayer = $("<div>");
+        var name = "<h4>" + playerCharacter.name + "</h4>";
+        var image = "<img src='" + playerCharacter.image + "'>";
+        var hp = "<h6>" + playerCharacter.hp + " HP</h6>";
+        battlePlayer.html(name);
+        battlePlayer.append(image);
+        battlePlayer.append(hp);
+        battleDiv.append(battlePlayer);
     }
 }
 
@@ -76,12 +94,12 @@ $(document).ready(function() {
     displayCharacters();
 
     $(".playerSelect").click(function(){
-        chooseCharacter(this);
-        $("#instructions").empty();
-        $("#instructions").text("Choose your opponent!");
-    });
+        chooseCharacter(this); 
 
-    $(".opponentSelect").click(function(){
-        chooseOpponent(this);
+        $(".opponentSelect").click(function(){
+            chooseOpponent(this);
+            console.log(opponentSelected);
+            battle();
+        });
     });
 })
