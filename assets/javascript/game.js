@@ -38,6 +38,7 @@ var characterSelected = false;
 var opponentSelected = false;
 var battleTime = false;
 var gameover = false;
+var defeatedCount = 1;
 
 function displayCharacters() {
     $.each(characters, function(i, character) {
@@ -57,7 +58,7 @@ function displayCharacters() {
 function chooseCharacter(player) {
     if (!characterSelected) {
         var id = $(player).attr("id");
-        $(player).removeClass("playerSelect").addClass("playerSelected");
+        $(player).removeClass("playerSelect").addClass("playerSelected").addClass("disable");
         playerCharacter = characters[id];
         // characters.splice(id, 1);
         console.log(playerCharacter);
@@ -72,7 +73,7 @@ function chooseCharacter(player) {
 function chooseOpponent(opponent) {
     if (characterSelected && !opponentSelected) {
         var id = $(opponent).attr("id");
-        $(opponent).removeClass("opponentSelect").addClass("opponentSelected");
+        $(opponent).removeClass("opponentSelect").addClass("opponentSelected").addClass("disable");
         opponentCharacter = characters[id];
         // characters.splice(id, 1);
         console.log(opponentCharacter);
@@ -148,7 +149,7 @@ function battle() {
             dealDamage();
             console.log(opponentCharacter);
 
-            if (opponentCharacter.hp <= 0 && characters.length === 0) {
+            if (opponentCharacter.hp <= 0 && defeatedCount === 3) {
                 $("#outcome").html("You win! Refresh to play again.");
                 gameover = true;
             }
@@ -156,11 +157,12 @@ function battle() {
                 $("#outcome").html("You lose. Refresh to play again.");
                 gameover = true;
             }
-            else if (opponentCharacter.hp <= 0) {
+            else if (opponentCharacter.hp <= 0 && defeatedCount < 3) {
                 $("#outcome").html(opponentCharacter.name + " was defeated.<br/>Choose another opponent.");
                 opponentSelected = false;
                 $("#opponentDiv").remove();
                 $(".standBy").removeClass("standBy").addClass("opponentSelect");
+                defeatedCount++
             };
         }
     });
