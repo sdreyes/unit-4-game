@@ -181,7 +181,7 @@ function battle() {
                     };
                 };
             };
-        }
+        };
     };
 
     $(attackButton).click(function(){
