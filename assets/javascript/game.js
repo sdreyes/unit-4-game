@@ -38,11 +38,7 @@ var characterSelected = false;
 var opponentSelected = false;
 var battleTime = false;
 var gameover = false;
-<<<<<<< HEAD
 var opponentsDefeated = 0;
-=======
-var defeatedCount = 1;
->>>>>>> e1d535fd08e27ab57459298f93d9e81f0689108e
 
 function displayCharacters() {
     $.each(characters, function(i, character) {
@@ -62,11 +58,7 @@ function displayCharacters() {
 function chooseCharacter(player) {
     if (!characterSelected) {
         var id = $(player).attr("id");
-<<<<<<< HEAD
         $(player).removeClass("playerSelect").addClass("notDisplayed");
-=======
-        $(player).removeClass("playerSelect").addClass("playerSelected").addClass("disable");
->>>>>>> e1d535fd08e27ab57459298f93d9e81f0689108e
         playerCharacter = characters[id];
         // characters.splice(id, 1);
         console.log(playerCharacter);
@@ -81,11 +73,7 @@ function chooseCharacter(player) {
 function chooseOpponent(opponent) {
     if (characterSelected && !opponentSelected) {
         var id = $(opponent).attr("id");
-<<<<<<< HEAD
         $(opponent).removeClass("opponentSelect").addClass("notDisplayed");
-=======
-        $(opponent).removeClass("opponentSelect").addClass("opponentSelected").addClass("disable");
->>>>>>> e1d535fd08e27ab57459298f93d9e81f0689108e
         opponentCharacter = characters[id];
         // characters.splice(id, 1);
         console.log(opponentCharacter);
