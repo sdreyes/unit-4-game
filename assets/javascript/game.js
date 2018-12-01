@@ -9,7 +9,7 @@ const characters = [
     {
         "name"          : "Arya",
         "hp"            : 100,
-        "attack"        : 8, // not sure of this //
+        "attack"        : 15, // not sure of this //
         "counterattack" : 5,
         "image"         : "assets/images/arya.jpg"
     },
@@ -135,7 +135,7 @@ function battle() {
         
 
     function dealDamage () {
-        if (opponentSelected) {
+        if (opponentSelected && gameover === false) {
 
             opponentCharacter.hp -= playerAttack;
             opponentHP = "<h6 class='opponentHP'>" + opponentCharacter.hp + " HP</h6>";
@@ -146,6 +146,15 @@ function battle() {
                 $("#outcome").html("You win! Refresh to play again.");
                 gameover = true;
             }
+
+            else if (opponentCharacter.hp <= 0) {
+                $("#outcome").html(opponentCharacter.name + " was defeated.<br/>Choose another opponent.");
+                opponentSelected = false;
+                playerAttack += playerCharacter.attack;
+                $("#opponentDiv").remove();
+                $(".standBy").removeClass("standBy").addClass("opponentSelect");
+            }
+
             else {
                 playerCharacter.hp -= opponentCharacter.counterattack;
                 playerHP = "<h6 class='playerHP'>" + playerCharacter.hp + " HP</h6>";
@@ -161,12 +170,6 @@ function battle() {
                     $("#outcome").html("You attacked " + opponentCharacter.name + " for " + playerAttack + " damage.<br/>" + opponentCharacter.name + " counterattacked for " + opponentCharacter.counterattack + " damage.");
                     playerAttack += playerCharacter.attack;
                     console.log(opponentCharacter.hp);
-                    if (opponentCharacter.hp <= 0) {
-                        $("#outcome").html(opponentCharacter.name + " was defeated.<br/>Choose another opponent.");
-                        opponentSelected = false;
-                        $("#opponentDiv").remove();
-                        $(".standBy").removeClass("standBy").addClass("opponentSelect");
-                    };
                 };
             };
         };
