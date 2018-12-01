@@ -61,6 +61,8 @@ function chooseCharacter(player) {
         $(player).removeClass("playerSelect").addClass("notDisplayed");
         playerCharacter = characters[id];
         // characters.splice(id, 1);
+        console.log(playerCharacter);
+        console.log(characters);
         characterSelected = true;
         $(".playerSelect").removeClass("playerSelect").addClass("opponentSelect");
         $("#instructions").empty();
@@ -74,6 +76,8 @@ function chooseOpponent(opponent) {
         $(opponent).removeClass("opponentSelect").addClass("notDisplayed");
         opponentCharacter = characters[id];
         // characters.splice(id, 1);
+        console.log(opponentCharacter);
+        console.log(characters);
         opponentSelected = true;
         $(".opponentSelect").removeClass("opponentSelect").addClass("standBy");
         $("#outcome").empty();
@@ -98,7 +102,7 @@ function displayBattleOpponent() {
     $(battleOpponent).addClass("opponentSelected");
     $("#instructions").empty();
     opponentsDefeated++;
-};
+}
 
 function battle() {
     if (characterSelected && opponentSelected && !battleTime) {
@@ -185,10 +189,7 @@ $(document).ready(function() {
 
         $(".opponentSelect").click(function(){
             chooseOpponent(this);
-            $(".col-6").html("<h2>Audience</h2>");
-            if (opponentsDefeated === 3) {
-                $(".col-6").empty();
-            }
+            $(".col-6").empty();
             battle();
         });
     });
