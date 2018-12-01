@@ -145,6 +145,8 @@ function battle() {
             if (opponentCharacter.hp <= 0 && opponentsDefeated === 3 && playerCharacter.hp > 0) {
                 $("#outcome").html("You win! Refresh to play again.");
                 gameover = true;
+                $("#opponentDiv").remove();
+                $(attackButton).addClass("notDisplayed");
             }
 
             else if (opponentCharacter.hp <= 0) {
@@ -164,6 +166,8 @@ function battle() {
                 if (playerCharacter.hp <= 0) {
                     $("#outcome").html("You lose. Refresh to play again.");
                     gameover = true;
+                    $("#opponentDiv").remove();
+                    $(attackButton).addClass("notDisplayed");
                 }
                 else {
                     console.log(playerCharacter.hp);
